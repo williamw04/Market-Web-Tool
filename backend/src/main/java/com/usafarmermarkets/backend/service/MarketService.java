@@ -1,2 +1,4 @@
-package com.usafarmermarkets.backend.service;public class MarketService {
+package com.usafarmermarkets.backend.service;
+
+public class MarketService {
 }

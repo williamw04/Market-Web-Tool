@@ -1,2 +1,4 @@
-package com.usafarmermarkets.backend.controller;public class MarketController {
+package com.usafarmermarkets.backend.controller;
+
+public class MarketController {
 }

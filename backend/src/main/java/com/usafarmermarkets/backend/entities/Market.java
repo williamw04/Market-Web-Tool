@@ -1,2 +1,4 @@
-package com.usafarmermarkets.backend.entities;public class Market {
+package com.usafarmermarkets.backend.entities;
+
+public class Market {
 }
