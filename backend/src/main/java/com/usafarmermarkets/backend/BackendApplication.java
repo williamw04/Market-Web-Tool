@@ -9,6 +9,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BackendApplication {
 
+	/**
+	 * The entry point of the application. When this application is run, the
+	 * Spring Boot framework will start the application and initialize the necessary
+	 * components using the dependencies and the metadata/ @ annotations.
+	 *
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}

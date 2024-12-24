@@ -14,11 +14,25 @@ import java.util.List;
 public class MarketService {
     private final MarketRepository marketRepository;
 
+    /**
+     * Constructor
+     * @requires marketRepository != null
+     * @param marketRepository
+     * @effects constructs a new MarketService object
+     * @returns none
+     */
     @Autowired
     MarketService(MarketRepository marketRepository) {
         this.marketRepository = marketRepository;
     }
 
+    /**
+     * Takes a single line from the CSV file into a Market object
+     * @requires line != null
+     * @param line
+     * @effects  none
+     * @returns Market object
+     */
     private Market parseMarketFromCsvLine(String[] line) {
         if (line.length < 22) {
             throw new IllegalArgumentException("Invalid CSV line: not enough fields");
@@ -43,57 +57,98 @@ public class MarketService {
         return market;
     }
 
+    /**
+     * Loads data from a CSV file
+     * @requires filePath != null
+     * @param filePath
+     * @effects none
+     * @returns none
+     */
     public void loadDataFromCsv(String filePath) {
-        String[] nextLine;
-        List<Market> markets = new ArrayList<>();
+        String[] nextLine; // next line from CSV file
+        List<Market> markets = new ArrayList<>(); // list of markets to save
 
+        //return for the case where data is already loaded
         if (isDataLoaded()) {
-            // Log or handle the case where data is already loaded
             return;
         }
 
+        //parse the CSV file
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
             reader.readNext(); // skip header line
 
             while ((nextLine = reader.readNext()) != null) {
                 try{
-                    Market market =parseMarketFromCsvLine(nextLine);
+                    Market market = parseMarketFromCsvLine(nextLine);
                     markets.add(market);
 
-                    if(markets.size() > 100){
+                    if(markets.size() > 100){ // save every 100 markets
                         marketRepository.saveAll(markets);
                         markets.clear();
                     }
                 }
                 catch (IllegalArgumentException e) {
+                    System.err.println("Error parsing line: " + e.getMessage());
                 }
-
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        // save any remaining markets
         if(!markets.isEmpty()){
             marketRepository.saveAll(markets);
         }
     }
 
+    /**
+     * Checks if data is already loaded
+     * @requires none
+     * @effects none
+     * @returns boolean
+     */
     public boolean isDataLoaded() {
         return marketRepository.count() > 0;
     }
 
+    /**
+     * Gets all markets
+     * @requires none
+     * @effects none
+     * @returns List of Market objects
+     */
     public List<Market> getAllMarkets() {
         return marketRepository.findAll();
     }
 
+    /**
+     * Gets a market by ID
+     * @requires id >= 0
+     * @param id
+     * @effects none
+     * @returns Market object
+     */
     public Market getMarketById(int  id) {
         return marketRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Saves a market
+     * @requires market != null
+     * @param market
+     * @effects none
+     * @returns Market object
+     */
     public Market saveMarket(Market market) {
         return marketRepository.save(market);
     }
 
+    /**
+     * Gets markets by city
+     * @requires city != null
+     * @param city
+     * @effects none
+     * @returns List of Market objects
+     */
     public List<Market> getMarketsByCity(String city) {
         return marketRepository.findByCity(city);
     }
