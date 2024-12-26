@@ -81,11 +81,7 @@ public class MarketService {
                 try{
                     Market market = parseMarketFromCsvLine(nextLine);
                     markets.add(market);
-
-                    if(markets.size() > 100){ // save every 100 markets
-                        marketRepository.saveAll(markets);
-                        markets.clear();
-                    }
+                    marketRepository.save(market);
                 }
                 catch (IllegalArgumentException e) {
                     System.err.println("Error parsing line: " + e.getMessage());
@@ -93,10 +89,6 @@ public class MarketService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        // save any remaining markets
-        if(!markets.isEmpty()){
-            marketRepository.saveAll(markets);
         }
     }
 

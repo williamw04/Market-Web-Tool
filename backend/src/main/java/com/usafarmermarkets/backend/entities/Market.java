@@ -6,52 +6,36 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name ="farmsmarketdemo")
 public class Market {
-
     // columns elements
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FMID")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int FMID;
 
-    @Column(name = "MarketName")
     private String MarketName;
 
-    @Column(name = "Website")
     private String Website;
 
-    @Column(name = "Facebook")
     private String Facebook;
 
-    @Column(name = "Twitter")
     private String Twitter;
 
-    @Column(name = "Youtube")
     private String Youtube;
 
-    @Column(name = "OtherMedia")
     private String OtherMedia;
 
-    @Column(name = "street")
     private String street;
 
-    @Column(name = "city")
     private String city;
 
-    @Column(name = "County")
     private String County;
 
-    @Column(name = "State")
     private String State;
 
-    @Column(name = "zip")
     private String zip;
 
-    @Column(name = "x")
     private float x;
 
-    @Column(name = "y")
     private float y;
 
     //constructor

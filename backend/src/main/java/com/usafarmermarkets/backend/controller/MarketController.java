@@ -11,12 +11,7 @@ import java.util.List;
 @RequestMapping("/api/markets")
 public class MarketController {
     @Autowired
-    private final MarketService marketService;
-
-    @Autowired
-    public MarketController(MarketService marketService) {
-        this.marketService = marketService;
-    }
+    private MarketService marketService;
 
     @GetMapping
     public List<Market> getAllMarkets() {

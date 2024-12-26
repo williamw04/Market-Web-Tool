@@ -4,13 +4,14 @@ import com.usafarmermarkets.backend.service.MarketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
  * This class is responsible for initializing the data from the CSV file.
  */
-@Component 
+@Configuration
 public class DataInitializer {
     private final MarketService farmerMarketService;
     private final String csvFilePath;
